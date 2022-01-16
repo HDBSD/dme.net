@@ -97,6 +97,13 @@ namespace DolphinComm
                            string inputString, MemBase memBase, MemType type,
                            int length)
         {
+            if (inputString.Length == 0)
+            {
+                returnCode = MemOperationReturnCode.invalidInput;
+                return null;
+            }
+
+
             throw new NotImplementedException();
             return new byte[0];
         }
@@ -104,8 +111,126 @@ namespace DolphinComm
         public static string formatMemoryToString(byte[] memory, MemType type, int length,
                                                       MemBase memBase, bool isUnsigned, bool withBSwap = false)
         {
-            throw new NotImplementedException();
-            return "To Be Implemented";
+            byte[] memoryCopy;
+
+
+            switch (type)
+            {
+                case MemType.type_byte:
+
+                    if (isUnsigned || memBase == MemBase.base_binary)
+                    {
+                        byte unsignedByte = 0;
+                        unsignedByte = memory[0];
+                        return unsignedByte.ToString();
+                    }
+                    else
+                    {
+                        sbyte aByte = 0;
+                        Array.ConvertAll(memory, b => unchecked((sbyte)b));
+                        return Convert.ToString(aByte);
+                    }
+
+                case MemType.type_halfword:
+                    
+                    memoryCopy = new byte[sizeof(uint)];
+                    Array.Copy(memory, memoryCopy, sizeof(UInt16));
+                    
+                    if (withBSwap)
+                    {
+                        Common.SwapByteArray(ref memoryCopy);
+                    }
+
+                    if (isUnsigned || memBase == MemBase.base_binary)
+                    {
+                        UInt16 unsignedHalfword = 0;
+                        unsignedHalfword = BitConverter.ToUInt16(memoryCopy, 0);
+                        return Convert.ToString(unsignedHalfword);
+                    }
+
+                    Int16 aHalfword = 0;
+                    aHalfword = BitConverter.ToInt16(memoryCopy, 0);
+                    return Convert.ToString(aHalfword);
+
+                case MemType.type_word:
+
+                    memoryCopy = new byte[sizeof(uint)];
+                    Array.Copy(memory, memoryCopy, sizeof(UInt32));
+
+                    if (withBSwap)
+                    {
+                        Common.SwapByteArray(ref memoryCopy);
+                    }
+
+                    if (isUnsigned || memBase == MemBase.base_binary)
+                    {
+                        UInt32 unsignedWord = 0;
+                        unsignedWord = BitConverter.ToUInt32(memoryCopy, 0);
+                        return Convert.ToString(unsignedWord);
+                    }
+
+                    Int32 aWord = 0;
+                    aWord = BitConverter.ToInt32(memoryCopy, 0);
+                    return Convert.ToString(aWord);
+
+                case MemType.type_float:
+
+                    memoryCopy = new byte[sizeof(uint)];
+                    Array.Copy(memory, memoryCopy, sizeof(UInt32));
+
+                    if (withBSwap)
+                    {
+                        Common.SwapByteArray(ref memoryCopy);
+                    }
+
+                    float aFloat = 0.0f;
+                    aFloat = BitConverter.ToSingle(memoryCopy, 0);
+
+                    return Convert.ToString(aFloat);
+
+                case MemType.type_double:
+
+                    memoryCopy = new byte[sizeof(uint)];
+                    Array.Copy(memory, memoryCopy, sizeof(UInt32));
+
+                    if (withBSwap)
+                    {
+                        Common.SwapByteArray(ref memoryCopy);
+                    }
+
+                    double aDouble = 0;
+                    aDouble = BitConverter.ToDouble(memoryCopy, 0);
+
+                    return Convert.ToString(aDouble);
+
+                case MemType.type_string:
+
+                    int actualLength = 0;
+                    for (; actualLength < length; actualLength++)
+                    {
+                        if (memory[actualLength] == 0x00)
+                            break;
+                    }
+
+                    return BitConverter.ToString(memory, actualLength);
+                    
+                case MemType.type_byteArray:
+
+                    string byteArray = "";
+
+                    for (int i = 0; i < length; i++)
+                    {
+                        byte aByte = 0;
+                        aByte = memory[i];
+                        byteArray += aByte.ToString("x4") + " ";
+                    }
+
+                    return byteArray.Substring(0,byteArray.Length-1);
+
+                default:
+                    return "";
+            }
+
         }
 
     }
