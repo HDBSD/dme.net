@@ -1,7 +1,7 @@
 # dme.net
 Dolphin Memory Engine ported to .Net
 
-## Orinal Project
+## Orignal Project
 
 [Dolphin Memory Engine](https://github.com/aldelaro5/Dolphin-memory-engine/)
 
