@@ -47,6 +47,7 @@
     <Compile Include="DolphinProcess\DolphinAccessor.cs" />
     <Compile Include="DolphinProcess\IDolphinProcess.cs" />
     <Compile Include="DolphinProcess\Windows\WindowsDolphinProcess.cs" />
+    <Compile Include="MemoryScanner\MemoryScanner.cs" />
     <Compile Include="MemoryWatcher\MemWatchEntry.cs" />
     <Compile Include="MemoryWatcher\MemWatchTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DolphinProcess\Linux\" />
-    <Folder Include="MemoryScanner\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
