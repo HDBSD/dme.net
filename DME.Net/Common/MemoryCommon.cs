@@ -17,6 +17,22 @@ namespace DolphinComm
         public static UInt32 MEM2_START = 0x90000000;
         public static UInt32 MEM2_END = 0x94000000;
 
+
+        public enum ScanFiter : uint
+        {
+            exact = 0,
+            increasedBy,
+            decreasedBy,
+            between,
+            biggerThan,
+            smallerThan,
+            increased,
+            decreased,
+            changed,
+            unchanged,
+            unknownInitial
+        }
+
         public enum MemType : uint
         {
             type_byte = 0,
