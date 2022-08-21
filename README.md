@@ -1,7 +1,7 @@
 # dme.net
-Dolphin Memory Engine ported to .Net
+Dolphin Memory Engine mostly ported to .Net
 
-## Orignal Project
+## Original Project
 
 [Dolphin Memory Engine](https://github.com/aldelaro5/Dolphin-memory-engine/)
 
