@@ -1,6 +1,8 @@
 # dme.net
 Dolphin Memory Engine mostly ported to .Net
 
+Still needs testing and finishing off
+
 ## Original Project
 
 [Dolphin Memory Engine](https://github.com/aldelaro5/Dolphin-memory-engine/)
